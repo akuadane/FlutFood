@@ -1,4 +1,4 @@
-# flut_food
+# Flut Food
 
 Flutter food ordering application
 
