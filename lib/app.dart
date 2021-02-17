@@ -1,5 +1,6 @@
 // File defines app wide settings and themes
 
+import 'package:flut_food/pages/food_detail.dart';
 import 'package:flut_food/pages/login.dart';
 import 'package:flut_food/pages/signup.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class _FlutFoodState extends State<FlutFood> {
     return MaterialApp(
       theme: ThemeData.light(),
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: FoodDetail(),
     );
   }
 }
