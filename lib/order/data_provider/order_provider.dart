@@ -3,17 +3,16 @@ import 'dart:convert';
 import 'package:flut_food/order/models/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
+import 'package:flut_food/api_config_files.dart';
 
 class OrderProvider {
-  //final _baseURL = "http://10.6.212.254:5000";
-  final _baseURL = "http://192.168.43.15:5000";
   final Client httpClient;
 
   OrderProvider(@required this.httpClient) : assert(httpClient != null);
 
   Future<List<Order>> getOrders() async {
     final response = await this.httpClient.get(
-          "$_baseURL/v1/admin/orders",
+          "$baseURL/v1/admin/orders",
         );
 
     if (response.statusCode == 200) {
@@ -24,7 +23,7 @@ class OrderProvider {
   }
 
   Future<Order> createOrder(Order order) async {
-    final response = await this.httpClient.post("$_baseURL/v1/admin/orders",
+    final response = await this.httpClient.post("$baseURL/v1/admin/orders",
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -44,7 +43,7 @@ class OrderProvider {
 
   Future<void> deleteOrder(int id) async {
     final response = await this.httpClient.delete(
-      "$_baseURL/v1/admin/orders/$id",
+      "$baseURL/v1/admin/orders/$id",
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -57,7 +56,7 @@ class OrderProvider {
 
   Future<void> updateOrder(Order order) async {
     final response = await this.httpClient.put(
-          "$_baseURL/v1/admin/orders/${order.id}",
+          "$baseURL/v1/admin/orders/${order.id}",
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
@@ -72,7 +71,7 @@ class OrderProvider {
             },
           ),
         );
-    print("$_baseURL/v1/admin/orders/:id/${order.id}");
+    print("$baseURL/v1/admin/orders/:id/${order.id}");
     print(response.statusCode);
     if (response.statusCode != 200) throw Exception("Error updating order");
   }
