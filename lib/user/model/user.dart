@@ -19,6 +19,7 @@ class User {
         userName: json["username"],
         fullName: json["fullname"],
         phone: json["phone"],
+        password: json["password"],
         email: json["email"]);
   }
 

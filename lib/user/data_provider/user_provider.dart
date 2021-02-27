@@ -19,6 +19,18 @@ class UserProvider {
     throw Exception("Error fetching user");
   }
 
+  Future<User> signInUser(String username, String password) async {
+    final response =
+        await this.httpClient.get("$baseURL/v1/admin/username/$username");
+
+    if (response.statusCode == 200) {
+      User user = User.fromJson(jsonDecode(response.body));
+      if (user.password == password) return user;
+      throw Exception("Wrong Credential");
+    }
+    throw Exception("Error signing in user");
+  }
+
   Future<User> createUser(User user) async {
     final response = await httpClient.post(
       "$baseURL/v1/admin/users",
