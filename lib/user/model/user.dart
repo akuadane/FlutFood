@@ -5,7 +5,7 @@ class User {
   String userName, fullName, email, phone, password;
 
   User({
-    @required this.id,
+    this.id,
     @required this.userName,
     @required this.fullName,
     @required this.phone,

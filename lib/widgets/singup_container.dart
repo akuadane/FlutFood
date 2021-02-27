@@ -1,8 +1,11 @@
 import 'package:flut_food/colors.dart';
 import 'package:flut_food/constants.dart';
 import 'package:flut_food/services/container_clipper.dart';
+import 'package:flut_food/user/bloc/bloc.dart';
+import 'package:flut_food/user/model/models.dart';
 import 'package:flut_food/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignupContainer extends StatefulWidget {
   @override
@@ -10,9 +13,12 @@ class SignupContainer extends StatefulWidget {
 }
 
 class _SignupContainerState extends State<SignupContainer> {
-  String email = '';
+  String username = '';
   String password = '';
+  String fullname = '';
   bool visible = false;
+
+  final _formKey = GlobalKey<FormState>();
 
   void toggleVisibility() {
     setState(() {
@@ -28,6 +34,7 @@ class _SignupContainerState extends State<SignupContainer> {
         color: kSecondaryColor,
         alignment: Alignment.center,
         child: Form(
+          key: _formKey,
           child: Padding(
             padding: const EdgeInsets.only(left: 16.0, top: 32.0, right: 16.0),
             child: SingleChildScrollView(
@@ -47,6 +54,11 @@ class _SignupContainerState extends State<SignupContainer> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty) return "Name can't be left empty";
+
+                        return null;
+                      },
                       style: kTextFormFieldStyle,
                       decoration: kInputFieldDecoration.copyWith(
                           hintText: 'Enter Full name',
@@ -56,26 +68,38 @@ class _SignupContainerState extends State<SignupContainer> {
                             Icons.account_circle,
                             color: Colors.white,
                           )),
-                      onChanged: (value) => email = value,
+                      onChanged: (value) => fullname = value,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty)
+                          return "Username can't be left empty";
+
+                        return null;
+                      },
                       style: kTextFormFieldStyle,
                       decoration: kInputFieldDecoration.copyWith(
-                          hintText: 'Enter email',
-                          labelText: 'Email',
+                          hintText: 'Enter Username',
+                          labelText: 'Username',
                           prefixIcon: Icon(
                             Icons.mail,
                             color: Colors.white,
                           )),
-                      onChanged: (value) => email = value,
+                      onChanged: (value) => username = value,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty)
+                          return "Password can't be left empty";
+
+                        return null;
+                      },
                       style: kTextFormFieldStyle,
                       obscureText: visible ? false : true,
                       decoration: kInputFieldDecoration.copyWith(
@@ -111,7 +135,20 @@ class _SignupContainerState extends State<SignupContainer> {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: RoundedButton(
                       text: 'Sign Up',
-                      onPressed: () {},
+                      onPressed: () {
+                        final form = _formKey.currentState;
+                        if (form.validate()) {
+                          final event = UserSignUp(User(
+                            userName: username,
+                            password: password,
+                            email: "sample@gmail.com",
+                            phone: "0940232452",
+                            fullName: fullname,
+                          ));
+
+                          BlocProvider.of<UserBloc>(context).add(event);
+                        }
+                      },
                       color: Colors.white,
                       labelColor: kSecondaryColor,
                     ),

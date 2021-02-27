@@ -2,8 +2,13 @@ import 'package:flut_food/colors.dart';
 import 'package:flut_food/constants.dart';
 import 'package:flut_food/pages/signup.dart';
 import 'package:flut_food/services/container_clipper.dart';
+import 'package:flut_food/user/bloc/bloc.dart';
+import 'package:flut_food/user/data_provider/data_provider.dart';
+import 'package:flut_food/user/model/models.dart';
 import 'package:flut_food/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
 
 class LoginContainer extends StatefulWidget {
   @override
@@ -12,8 +17,10 @@ class LoginContainer extends StatefulWidget {
 
 class _LoginContainerState extends State<LoginContainer> {
   bool visible = false;
-  String email = '';
+  String username = '';
   String password = '';
+
+  final _formKey = GlobalKey<FormState>();
 
   void toggleVisibility() {
     setState(() {
@@ -29,6 +36,7 @@ class _LoginContainerState extends State<LoginContainer> {
         color: Colors.white,
         alignment: Alignment.center,
         child: Form(
+          key: _formKey,
           child: Padding(
             padding: const EdgeInsets.only(left: 16.0, top: 32.0, right: 16.0),
             child: SingleChildScrollView(
@@ -48,10 +56,16 @@ class _LoginContainerState extends State<LoginContainer> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty)
+                          return "Username can't be left empty";
+
+                        return null;
+                      },
                       style:
                           kTextFormFieldStyle.copyWith(color: Colors.black54),
                       decoration: kInputDecoration.copyWith(
-                        hintText: 'Enter email',
+                          hintText: 'Enter username',
                           focusColor: kSecondaryColor,
                           enabledBorder: OutlineInputBorder(
                             borderSide:
@@ -69,17 +83,23 @@ class _LoginContainerState extends State<LoginContainer> {
                             Icons.mail,
                             color: kSecondaryColor,
                           )),
-                      onChanged: (value) => email = value,
+                      onChanged: (value) => username = value,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty)
+                          return "Password can't be left empty";
+
+                        return null;
+                      },
                       style:
                           kTextFormFieldStyle.copyWith(color: Colors.black54),
                       obscureText: visible ? false : true,
                       decoration: kInputDecoration.copyWith(
-                        hintText: 'Enter password',
+                          hintText: 'Enter password',
                           enabledBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: kSecondaryColor, width: 1.0),
@@ -116,7 +136,14 @@ class _LoginContainerState extends State<LoginContainer> {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: RoundedButton(
                         text: 'Login',
-                        onPressed: () {},
+                        onPressed: () {
+                          final form = _formKey.currentState;
+                          if (form.validate()) {
+                            final event =
+                                UserSignInWithUsername(username, password);
+                            BlocProvider.of<UserBloc>(context).add(event);
+                          }
+                        },
                         color: kSecondaryColor),
                   ),
                   Row(
