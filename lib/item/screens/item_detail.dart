@@ -201,6 +201,7 @@ class _ItemDetailState extends State<ItemDetail> {
                           userId: userId,
                         ),
                       ));
+                      Navigator.pop(context);
                     }
                   },
                   child: Container(

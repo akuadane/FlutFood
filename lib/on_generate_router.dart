@@ -1,4 +1,5 @@
 import 'package:flut_food/item/screens/home.dart';
+import 'package:flut_food/item/screens/index.dart';
 import 'package:flut_food/item/screens/item_detail.dart';
 import 'package:flut_food/user/screens/login.dart';
 import 'package:flut_food/user/screens/profile.dart';
@@ -15,6 +16,8 @@ class OnGenerateRouter {
       return MaterialPageRoute(builder: (context) => LoginPage());
     } else if (settings.name == SIGN_UP) {
       return MaterialPageRoute(builder: (context) => SignupPage());
+    } else if (settings.name == HOME_HOLDER) {
+      return MaterialPageRoute(builder: (context) => HomeHolder());
     } else if (settings.name == PROFILE) {
       return MaterialPageRoute(builder: (context) => ProfilePage());
     } else if (settings.name == ITEM_DETAIL) {
