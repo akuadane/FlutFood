@@ -3,6 +3,8 @@ import 'package:flut_food/colors.dart';
 import 'package:flut_food/item/screens/home.dart';
 import 'package:flutter/material.dart';
 
+import '../../order/screens/screens.dart';
+
 class HomeHolder extends StatefulWidget {
   @override
   _HomeHolderState createState() => _HomeHolderState();
@@ -19,7 +21,7 @@ class _HomeHolderState extends State<HomeHolder> {
         controller: this._pageController,
         children: [
           HomePage(),
-          Container(),
+          OrderListScreen(),
           CartList(),
         ],
         onPageChanged: (currentPage) {

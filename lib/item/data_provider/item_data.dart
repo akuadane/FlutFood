@@ -20,4 +20,13 @@ class ItemDataProvider {
       throw Exception('Failed to load items');
     }
   }
+
+  Future<Item> getItem(int id) async {
+    final response = await httpClient.get('$baseURL/v1/admin/items/$id');
+    if (response.statusCode == 200) {
+      return Item.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to get item');
+    }
+  }
 }

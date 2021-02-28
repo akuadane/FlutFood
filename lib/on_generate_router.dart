@@ -6,6 +6,8 @@ import 'package:flut_food/user/screens/profile.dart';
 import 'package:flut_food/user/screens/signup.dart';
 import 'package:flutter/material.dart';
 import 'item/models/models.dart';
+import 'order/models/order.dart';
+import 'order/screens/order_detail_screen.dart';
 import 'routes.dart';
 
 class OnGenerateRouter {
@@ -26,6 +28,11 @@ class OnGenerateRouter {
           builder: (context) => ItemDetail(
                 item: item,
               ));
+    } else if (settings.name == ORDER_DETAIL) {
+      final Order order = settings.arguments;
+      return MaterialPageRoute(
+        builder: (context) => OrderDetailScreen(order),
+      );
     }
 
     return MaterialPageRoute(builder: (context) => LoginPage());

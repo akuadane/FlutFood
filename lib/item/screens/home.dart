@@ -73,33 +73,39 @@ class HomePage extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SvgPicture.asset(
-                                    "assets/images/burger.svg",
-                                    height: 90,
-                                    width: 50,
+                                  Expanded(
+                                    child: SvgPicture.asset(
+                                      "assets/images/burger.svg",
+                                      height: 90,
+                                      width: 50,
+                                    ),
                                   ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        '${items[index].name}',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '${items[index].name}',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        '${items[index].description}',
-                                      ),
-                                      Text(
-                                        '\$ ${items[index].price}',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
+                                        Expanded(
+                                          child: Text(
+                                            '${items[index].description}',
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                        Text(
+                                          '\$ ${items[index].price}',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),

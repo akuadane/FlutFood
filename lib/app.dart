@@ -13,11 +13,18 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'order/bloc/bloc.dart';
+import 'order/repository/order_repository.dart';
+
 class FlutFood extends StatelessWidget {
   final ItemRepository itemRepository;
   final UserRepository userRepository;
+  final OrderRepository orderRepository;
 
-  FlutFood({@required this.itemRepository, @required this.userRepository})
+  FlutFood(
+      {@required this.itemRepository,
+      @required this.userRepository,
+      @required this.orderRepository})
       : assert(itemRepository != null),
         assert(userRepository != null);
 
@@ -33,6 +40,9 @@ class FlutFood extends StatelessWidget {
             ),
             BlocProvider(create: (context) => CartBloc()),
             BlocProvider(create: (context) => UserBloc(this.userRepository)),
+            BlocProvider(
+              create: (context) => OrderBloc(this.orderRepository),
+            ),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

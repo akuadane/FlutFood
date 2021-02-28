@@ -9,4 +9,8 @@ class ItemRepository {
   Future<List<Item>> getItems() async {
     return await dataProvider.getItems();
   }
+
+  Future<Item> getItem(int id) async {
+    return await dataProvider.getItem(id);
+  }
 }
