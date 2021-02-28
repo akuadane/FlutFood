@@ -7,8 +7,9 @@ import 'package:flut_food/order/models/order.dart';
 import '../../colors.dart';
 import '../../item/item.dart';
 import '../../item/repository/item_repository.dart';
-import '../../routes.dart';
-import '../../routes.dart';
+
+import 'package:flut_food/routes.dart';
+
 import 'order_detail_screen.dart';
 import 'order_update_screen.dart';
 
@@ -49,6 +50,7 @@ class OrderListScreen extends StatelessWidget {
           if (orderState is OrderLoaded) {
             List<Order> orders = orderState.orders;
             return ListView.builder(
+                physics: BouncingScrollPhysics(),
                 itemCount: orders.length,
                 itemBuilder: (context, index) {
                   return FutureBuilder<Item>(
@@ -56,18 +58,13 @@ class OrderListScreen extends StatelessWidget {
                     builder: (context, tempItem) {
                       if (tempItem.hasData) {
                         Item item = tempItem.data;
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          margin: EdgeInsets.all(10),
+                        return Card(
                           child: ListTile(
                             isThreeLine: true,
                             leading: Image.asset('assets/images/pizza.jpg'),
-                            title: Text("Order ${orders[index].id}"),
+                            title: Text("${item.name}"),
                             subtitle: Text(
-                                "Item: ${item.name}\nState: ${orders[index].orderState}"),
+                                "Quantity: ${orders[index].quantity}\nState: ${orders[index].orderState}"),
                             trailing: IconButton(
                                 icon: Icon(Icons.edit),
                                 onPressed: () {
