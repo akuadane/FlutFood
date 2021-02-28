@@ -20,7 +20,7 @@ class _SignupPageState extends State<SignupPage> {
             Scaffold.of(context)
                 .showSnackBar(SnackBar(content: Text(userState.error)));
           } else if (userState is UserSuccessfullySignedIn) {
-            Navigator.pushNamed(context, HOME);
+            Navigator.pushNamed(context, HOME_HOLDER);
           }
         },
         child: SafeArea(

@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
                 SnackBar(content: Text("Incorrect user credential.")));
           } else if (userState is UserSuccessfullySignedIn) {
             BlocProvider.of<ItemBloc>(context).add(ItemLoad());
-            Navigator.pushNamed(context, HOME);
+            Navigator.pushNamed(context, HOME_HOLDER);
           }
         },
         child: SafeArea(
