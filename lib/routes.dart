@@ -3,4 +3,5 @@
 const String HOME = '/';
 const String LOGIN = '/login';
 const String SIGN_UP = '/sign-up';
-const String FOOD_DETAIL="/food-detail";
+const String FOOD_DETAIL = "/food-detail";
+const String PROFILE = "/profile";

@@ -9,7 +9,7 @@ final kButtonTextStyle = TextStyle(
 );
 
 final kInputDecoration = InputDecoration(
-    labelText: 'Email',
+    labelText: 'Username',
     labelStyle: TextStyle(color: kSecondaryColor),
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)));
 

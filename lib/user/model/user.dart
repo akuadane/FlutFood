@@ -5,7 +5,7 @@ class User {
   String userName, fullName, email, phone, password;
 
   User({
-    @required this.id,
+    this.id,
     @required this.userName,
     @required this.fullName,
     @required this.phone,
@@ -19,6 +19,7 @@ class User {
         userName: json["username"],
         fullName: json["fullname"],
         phone: json["phone"],
+        password: json["password"],
         email: json["email"]);
   }
 

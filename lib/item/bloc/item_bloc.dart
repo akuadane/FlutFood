@@ -15,8 +15,6 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
       yield ItemLoading();
       try {
         final items = await itemRepository.getItems();
-        print(items);
-        print('======================');
         yield ItemsLoadSuccess(items);
       } catch (_) {
         yield ItemOperationFailure();
