@@ -19,7 +19,7 @@ class ItemDataProvider {
     if (response.statusCode == 200) {
       final items = jsonDecode(response.body) as List;
       final temp = items.map((item) => Item.fromJson(item)).toList();
-      print(temp);
+      
       return temp;
     } else {
       throw Exception('Failed to load items');
