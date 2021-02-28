@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flut_food/order/bloc/bloc.dart';
 import 'package:flut_food/order/models/order.dart';
-import 'package:flut_food/order/screens/screens.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:http/http.dart' as http;
 
 import '../../colors.dart';
+import '../../item/data_provider/item_data.dart';
+import '../../item/item.dart';
+import '../../item/repository/item_repository.dart';
 
 class OrderUpdateScreen extends StatefulWidget {
   static String routeName = "/orderUpdateScreen";
-  Order order;
+  final Order order;
+  final ItemRepository itemRepository =
+      ItemRepository(dataProvider: ItemDataProvider(httpClient: http.Client()));
 
   OrderUpdateScreen(this.order) : assert(order != null);
 
@@ -67,7 +72,7 @@ class _OrderUpdateScreenState extends State<OrderUpdateScreen> {
                         onPressed: () {
                           if (widget.order.quantity > 1) {
                             setState(() {
-                              widget.order.id--;
+                              widget.order.quantity--;
                             });
                           }
                         },
@@ -76,7 +81,7 @@ class _OrderUpdateScreenState extends State<OrderUpdateScreen> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Text(
-                        "${widget.order.id}",
+                        "${widget.order.quantity}",
                         style: TextStyle(
                           fontSize: 30,
                         ),
@@ -95,7 +100,7 @@ class _OrderUpdateScreenState extends State<OrderUpdateScreen> {
                         ),
                         onPressed: () {
                           setState(() {
-                            widget.order.id++;
+                            widget.order.quantity++;
                           });
                         },
                       ),
@@ -189,7 +194,7 @@ class _OrderUpdateScreenState extends State<OrderUpdateScreen> {
                     child: Row(
                       children: [
                         Icon(
-                          Icons.shopping_cart,
+                          Icons.update,
                           color: Colors.white,
                         ),
                         SizedBox(
