@@ -7,11 +7,8 @@ import 'package:flut_food/order/models/order.dart';
 import '../../colors.dart';
 import '../../item/item.dart';
 import '../../item/repository/item_repository.dart';
-
 import 'package:flut_food/routes.dart';
-
 import 'order_detail_screen.dart';
-import 'order_update_screen.dart';
 
 class OrderListScreen extends StatelessWidget {
   static String routeName = "/orderListScreen";
@@ -58,19 +55,24 @@ class OrderListScreen extends StatelessWidget {
                     builder: (context, tempItem) {
                       if (tempItem.hasData) {
                         Item item = tempItem.data;
-                        return Card(
-                          child: ListTile(
-                            isThreeLine: true,
-                            leading: Image.asset('assets/images/pizza.jpg'),
-                            title: Text("${item.name}"),
-                            subtitle: Text(
-                                "Quantity: ${orders[index].quantity}\nState: ${orders[index].orderState}"),
-                            trailing: IconButton(
-                                icon: Icon(Icons.edit),
-                                onPressed: () {
-                                  Navigator.pushNamed(context, ORDER_UPDATE,
-                                      arguments: orders[index]);
-                                }),
+                        return Dismissible(
+                          key: Key("${orders[index].id}"),
+                          onDismissed: (direction) {
+                            BlocProvider.of<OrderBloc>(context)
+                                .add(OrderDelete(orders[index]));
+                          },
+                          child: Card(
+                            child: ListTile(
+                              isThreeLine: true,
+                              leading: Image.asset('assets/images/pizza.jpg'),
+                              title: Text("${item.name}"),
+                              subtitle: Text(
+                                  "Quantity: ${orders[index].quantity}\nState: ${orders[index].orderState}"),
+                              onTap: () {
+                                Navigator.pushNamed(context, ORDER_UPDATE,
+                                    arguments: orders[index]);
+                              },
+                            ),
                           ),
                         );
                       }

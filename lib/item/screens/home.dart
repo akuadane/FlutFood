@@ -16,9 +16,9 @@ class HomePage extends StatelessWidget {
     return WillPopScope(
       //onWillPop: () => SystemNavigator.pop(),
       child: Scaffold(
-        backgroundColor: kSecondaryColor,
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: kLoginMainColor,
+          backgroundColor: Colors.white,
           centerTitle: true,
           elevation: 0,
           leading: Container(),
@@ -27,11 +27,15 @@ class HomePage extends StatelessWidget {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
+              color: kLoginMainColor,
             ),
           ),
           actions: [
             IconButton(
-                icon: Icon(Icons.person),
+                icon: Icon(
+                  Icons.person,
+                  color: kLoginMainColor,
+                ),
                 onPressed: () {
                   Navigator.pushNamed(context, PROFILE);
                 })
@@ -44,7 +48,7 @@ class HomePage extends StatelessWidget {
               margin: EdgeInsets.only(top: 10.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(color: kSecondaryColor),
+                //border: Border.all(color: kSecondaryColor),
                 color: Colors.white,
               ),
               child: BlocBuilder<ItemBloc, ItemState>(builder: (_, state) {

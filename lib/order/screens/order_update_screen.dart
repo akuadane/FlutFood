@@ -1,3 +1,4 @@
+import 'package:flut_food/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flut_food/order/bloc/bloc.dart';
@@ -23,14 +24,29 @@ class OrderUpdateScreen extends StatefulWidget {
 }
 
 class _OrderUpdateScreenState extends State<OrderUpdateScreen> {
-  final _order = {};
+  int _amount;
+
+  @override
+  void initState() {
+    this._amount = widget.order.quantity;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Update order"),
+        backgroundColor: Colors.white,
         centerTitle: true,
+        title: Text(
+          "UPDATE ORDER",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: kLoginMainColor,
+          ),
+        ),
+        leading: Container(),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -70,9 +86,9 @@ class _OrderUpdateScreenState extends State<OrderUpdateScreen> {
                           size: 30,
                         ),
                         onPressed: () {
-                          if (widget.order.quantity > 1) {
+                          if (_amount > 1) {
                             setState(() {
-                              widget.order.quantity--;
+                              _amount--;
                             });
                           }
                         },
@@ -81,7 +97,7 @@ class _OrderUpdateScreenState extends State<OrderUpdateScreen> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Text(
-                        "${widget.order.quantity}",
+                        "${_amount}",
                         style: TextStyle(
                           fontSize: 30,
                         ),
@@ -100,7 +116,7 @@ class _OrderUpdateScreenState extends State<OrderUpdateScreen> {
                         ),
                         onPressed: () {
                           setState(() {
-                            widget.order.quantity++;
+                            _amount++;
                           });
                         },
                       ),
@@ -132,87 +148,24 @@ class _OrderUpdateScreenState extends State<OrderUpdateScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         color: backgroundColor,
-        child: Container(
-          decoration: BoxDecoration(
-            color: kLoginMainColor,
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(20),
-            ),
-          ),
-          height: 60,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Price",
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: kSignupTextColor,
-                        ),
-                      ),
-                      Text(
-                        "",
-                        // "\$ ${_price * _amount}",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      )
-                    ],
-                  ),
+        child: RoundedButton(
+          text: 'Update Order',
+          onPressed: () {
+            BlocProvider.of<OrderBloc>(context).add(
+              OrderUpdate(
+                Order(
+                  id: widget.order.id,
+                  itemId: widget.order.itemId,
+                  orderState: widget.order.orderState,
+                  userId: widget.order.userId,
+                  quantity: this._amount,
                 ),
-                InkWell(
-                  onTap: () {
-                    //UserState userState = context.read<UserBloc>().state;
-
-                    //int userId = userState.user.id;
-                    BlocProvider.of<OrderBloc>(context).add(
-                      OrderUpdate(
-                        Order(
-                          id: widget.order.id,
-                          itemId: this._order["item_id"],
-                          orderState: widget.order.orderState,
-                          userId: this._order["user_id"],
-                          quantity: this._order["quantity"],
-                        ),
-                      ),
-                    );
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: accentColor,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.update,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "Update",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+              ),
+            );
+            Navigator.pop(context);
+          },
+          color: accentColor,
+          labelColor: Colors.white,
         ),
       ),
     );
