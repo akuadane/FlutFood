@@ -54,6 +54,7 @@ class HomePage extends StatelessWidget {
                 if (state is ItemsLoadSuccess) {
                   final items = state.items;
                   return GridView.builder(
+                      physics: BouncingScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                       ),
