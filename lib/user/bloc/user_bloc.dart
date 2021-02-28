@@ -37,6 +37,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       } catch (_) {
         yield UserGeneralFailure("Error updating user");
       }
+    } else if (event is UserDelete) {
+      try {
+        await this.userRepository.deleteUser(event.user.id);
+        yield UserSuccessfullySignedOut();
+      } catch (_) {
+        yield UserGeneralFailure("Error deleting user");
+      }
     } else if (event is UserSignOut) {
       yield UserSuccessfullySignedOut();
     }

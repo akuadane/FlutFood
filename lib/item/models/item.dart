@@ -4,12 +4,13 @@ import 'models.dart';
 
 @immutable
 class Item extends Equatable {
-  Item({this.id,
-    this.name,
-    this.price,
-    this.description,
-    this.categories,
-    this.ingredients});
+  Item(
+      {this.id,
+      this.name,
+      this.price,
+      this.description,
+      this.categories,
+      this.ingredients});
 
   final int id;
   final String name;
@@ -23,6 +24,7 @@ class Item extends Equatable {
 
   factory Item.fromJson(Map<String, dynamic> json) {
     //TODO make the catagories and ingredients lists so that they match the data from the API
+
     return Item(
       id: json['id'],
       name: json['name'],

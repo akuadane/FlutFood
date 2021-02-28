@@ -1,4 +1,5 @@
 import 'package:flut_food/item/bloc/bloc.dart';
+import 'package:flut_food/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flut_food/widgets/logo_widget.dart';
 import 'package:flut_food/colors.dart';
@@ -11,6 +12,26 @@ class HomePage extends StatelessWidget {
     return WillPopScope(
       child: Scaffold(
         backgroundColor: kSecondaryColor,
+        appBar: AppBar(
+          backgroundColor: kLoginMainColor,
+          centerTitle: true,
+          elevation: 0,
+          leading: Container(),
+          title: Text(
+            "FlutFood",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.person),
+                onPressed: () {
+                  Navigator.pushNamed(context, PROFILE);
+                })
+          ],
+        ),
         body: SafeArea(
           child: Container(
             margin: EdgeInsets.all(10.0),
