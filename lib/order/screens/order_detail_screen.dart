@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 import 'package:flut_food/order/bloc/bloc.dart';
 import 'package:flut_food/order/data_provider/order_provider.dart';
 import 'package:flut_food/order/models/order.dart';
 
+import '../../colors.dart';
 import 'order_list_screen.dart';
 import 'order_update_screen.dart';
 
@@ -18,8 +18,16 @@ class OrderDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Order Detail"),
+        backgroundColor: Colors.white,
         centerTitle: true,
+        title: Text(
+          "ORDER DETAIL",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: kLoginMainColor,
+          ),
+        ),
         actions: [
           IconButton(
               icon: Icon(Icons.edit),

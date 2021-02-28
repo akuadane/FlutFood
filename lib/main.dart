@@ -6,6 +6,8 @@ import 'package:flut_food/app.dart';
 import 'package:http/http.dart' as http;
 
 import 'bloc_observer.dart';
+import 'order/data_provider/order_provider.dart';
+import 'order/repository/order_repository.dart';
 
 Future<void> main() async {
   Bloc.observer = SimpleBlocObserver();
@@ -19,8 +21,11 @@ Future<void> main() async {
     UserProvider(http.Client()),
   );
 
+  final OrderRepository orderRepository =
+      OrderRepository(OrderProvider(http.Client()));
   runApp(FlutFood(
     itemRepository: itemRepository,
     userRepository: userRepository,
+    orderRepository: orderRepository,
   ));
 }

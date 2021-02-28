@@ -2,8 +2,6 @@ import 'package:flut_food/cart/bloc/bloc.dart';
 import 'package:flut_food/item/models/models.dart';
 import 'package:flut_food/order/models/models.dart';
 import 'package:flut_food/user/bloc/bloc.dart';
-import 'package:flut_food/user/model/models.dart';
-import 'package:flut_food/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flut_food/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
