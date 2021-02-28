@@ -1,5 +1,8 @@
+import 'package:flut_food/cart/bloc/bloc.dart';
 import 'package:flut_food/item/bloc/bloc.dart';
+import 'package:flut_food/order/models/models.dart';
 import 'package:flut_food/routes.dart';
+import 'package:flut_food/user/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flut_food/widgets/logo_widget.dart';
 import 'package:flut_food/colors.dart';
@@ -70,57 +73,97 @@ class HomePage extends StatelessWidget {
                             Navigator.pushNamed(context, ITEM_DETAIL,
                                 arguments: items[index]);
                           },
-                          child: Card(
-                            color: Colors.white70,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: (items[index].image == "")
-                                        ? SvgPicture.asset(
-                                            "assets/images/burger.svg",
-                                            height: 90,
-                                            width: 50,
-                                          )
-                                        : Image.network(
-                                            items[index].image,
-                                            fit: BoxFit.cover,
-                                            height: 90,
-                                          ),
+                          child: Stack(
+                            children: [
+                              Card(
+                                color: Colors.white70,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        width: double.infinity,
+                                      ),
+                                      Expanded(
+                                        child: (items[index].image == "")
+                                            ? SvgPicture.asset(
+                                                "assets/images/burger.svg",
+                                                height: 90,
+                                                width: 50,
+                                              )
+                                            : Image.network(
+                                                items[index].image,
+                                                fit: BoxFit.fitWidth,
+                                              ),
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              '${items[index].name}',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                '${items[index].description}',
+                                              ),
+                                            ),
+                                            Text(
+                                              '\$ ${items[index].price}',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '${items[index].name}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                          ),
+                                ),
+                              ),
+                              Positioned(
+                                right: 10,
+                                top: 10,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    UserState userState =
+                                        context.read<UserBloc>().state;
+
+                                    if (userState is UserSuccessfullySignedIn) {
+                                      int userId = userState.user.id;
+                                      BlocProvider.of<CartBloc>(context)
+                                          .add(AddOrder(
+                                        Order(
+                                          itemId: items[index].id,
+                                          quantity: 1,
+                                          orderState: "Pending",
+                                          userId: userId,
                                         ),
-                                        Expanded(
-                                          child: Text(
-                                            '${items[index].description}',
-                                          ),
-                                        ),
-                                        Text(
-                                          '\$ ${items[index].price}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      ],
+                                      ));
+                                    }
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      color: accentColor,
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Icon(
+                                      Icons.add_shopping_cart,
+                                      color: Colors.white,
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
+                                ),
+                              )
+                            ],
                           ),
                         );
                       });

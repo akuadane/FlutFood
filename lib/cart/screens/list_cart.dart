@@ -55,11 +55,16 @@ class CartList extends StatelessWidget {
                                 child: Card(
                                   child: ListTile(
                                     isThreeLine: true,
-                                    leading: SvgPicture.asset(
-                                      "assets/images/burger.svg",
-                                      height: 90,
-                                      width: 50,
-                                    ),
+                                    leading: (item.image == "")
+                                        ? SvgPicture.asset(
+                                            "assets/images/burger.svg",
+                                            width: 90,
+                                          )
+                                        : Image.network(
+                                            item.image,
+                                            fit: BoxFit.cover,
+                                            width: 90,
+                                          ),
                                     title: Text(
                                       "${item.name}",
                                       style: TextStyle(
