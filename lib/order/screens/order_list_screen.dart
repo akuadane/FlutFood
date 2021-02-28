@@ -7,8 +7,11 @@ import 'package:flut_food/order/models/order.dart';
 import '../../colors.dart';
 import '../../item/item.dart';
 import '../../item/repository/item_repository.dart';
+
 import 'package:flut_food/routes.dart';
+
 import 'order_detail_screen.dart';
+import 'order_update_screen.dart';
 
 class OrderListScreen extends StatelessWidget {
   static String routeName = "/orderListScreen";
@@ -63,17 +66,11 @@ class OrderListScreen extends StatelessWidget {
                             subtitle: Text(
                                 "Quantity: ${orders[index].quantity}\nState: ${orders[index].orderState}"),
                             trailing: IconButton(
-                                icon: Icon(Icons.delete),
+                                icon: Icon(Icons.edit),
                                 onPressed: () {
-                                  BlocProvider.of<OrderBloc>(context)
-                                      .add(OrderDelete(orders[index]));
-                                  // Navigator.pushNamed(
-                                  //     context, OrderListScreen.routeName);
+                                  Navigator.pushNamed(context, ORDER_UPDATE,
+                                      arguments: orders[index]);
                                 }),
-                            onTap: () {
-                              Navigator.pushNamed(context, ORDER_DETAIL,
-                                  arguments: orders[index]);
-                            },
                           ),
                         );
                       }
