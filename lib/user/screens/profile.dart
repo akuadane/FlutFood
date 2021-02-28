@@ -127,6 +127,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: RoundedButton(
+                      text: 'Sign Out',
+                      onPressed: () {
+                        BlocProvider.of<UserBloc>(context).add(
+                          UserSignOut(),
+                        );
+                        Navigator.pushNamed(context, LOGIN);
+                      },
+                      color: kLoginMainColor),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: RoundedButton(
                       text: 'Delete Account',
                       onPressed: () {
                         BlocProvider.of<UserBloc>(context).add(

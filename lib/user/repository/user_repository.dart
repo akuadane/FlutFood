@@ -12,6 +12,10 @@ class UserRepository {
     return await this.userProvider.getUserByUserName(username);
   }
 
+  Future<User> getUserById() async {
+    return await this.userProvider.getUserById();
+  }
+
   Future<User> signInUser(String username, String password) async {
     return await this.userProvider.signInUser(username, password);
   }

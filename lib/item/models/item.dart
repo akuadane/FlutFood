@@ -10,10 +10,12 @@ class Item extends Equatable {
       this.price,
       this.description,
       this.categories,
+      this.image,
       this.ingredients});
 
   final int id;
   final String name;
+  final String image;
   final int price;
   final String description;
   final List<Categories> categories;
@@ -26,19 +28,20 @@ class Item extends Equatable {
     //TODO make the catagories and ingredients lists so that they match the data from the API
     List<Categories> tempCategories = [];
     List<Ingredients> tempIngredients = [];
-
-    for (int i = 0; i < json["categories"].length; i++) {
-      tempCategories.add(Categories.fromJson(json["categories"][i]));
-    }
-
-    for (int i = 0; i < json["ingredients"].length; i++) {
-      tempIngredients.add(Ingredients.fromJson(json["ingredients"][i]));
-    }
+    // if(json["categories"]!=null)
+    //   for (int i = 0; i < json["categories"].length; i++) {
+    //     tempCategories.add(Categories.fromJson(json["categories"][i]));
+    //   }
+    //
+    //   for (int i = 0; i < json["ingredients"].length; i++) {
+    //     tempIngredients.add(Ingredients.fromJson(json["ingredients"][i]));
+    //   }
 
     return Item(
       id: json['id'],
       name: json['name'],
       price: json['price'],
+      image: json['image'],
       description: json['description'],
       categories: tempCategories,
       ingredients: tempIngredients,

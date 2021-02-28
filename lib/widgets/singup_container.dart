@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flut_food/colors.dart';
 import 'package:flut_food/constants.dart';
 import 'package:flut_food/services/container_clipper.dart';
@@ -138,11 +140,12 @@ class _SignupContainerState extends State<SignupContainer> {
                       onPressed: () {
                         final form = _formKey.currentState;
                         if (form.validate()) {
-                          final event = UserSignUp(User(
+                          int random = Random().nextInt(1000);
+                          UserEvent event = UserSignUp(User(
                             userName: username,
                             password: password,
-                            email: "sample@gmail.com",
-                            phone: "0940232452",
+                            email: "sample$random@gmail.com",
+                            phone: "$random",
                             fullName: fullname,
                           ));
 

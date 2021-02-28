@@ -11,18 +11,28 @@ class ItemDataProvider {
   ItemDataProvider({@required this.httpClient}) : assert(httpClient != null);
 
   Future<List<Item>> getItems() async {
-    final response = await httpClient.get('$baseURL/v1/admin/items');
+    final response = await httpClient
+        .get('$baseURL/v1/admin/items', headers: <String, String>{
+      'api-key': "9fe8c794-32fd-4dba-b57e-68194327285d",
+    });
+
     if (response.statusCode == 200) {
       final items = jsonDecode(response.body) as List;
-
-      return items.map((item) => Item.fromJson(item)).toList();
+      final temp = items.map((item) => Item.fromJson(item)).toList();
+      print(temp);
+      return temp;
     } else {
       throw Exception('Failed to load items');
     }
   }
 
   Future<Item> getItem(int id) async {
-    final response = await httpClient.get('$baseURL/v1/admin/items/$id');
+    final response = await httpClient.get(
+      '$baseURL/v1/admin/items/$id',
+      headers: <String, String>{
+        'api-key': "9fe8c794-32fd-4dba-b57e-68194327285d",
+      },
+    );
     if (response.statusCode == 200) {
       return Item.fromJson(jsonDecode(response.body));
     } else {

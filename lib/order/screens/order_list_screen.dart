@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:flut_food/order/bloc/bloc.dart';
 import 'package:flut_food/order/models/order.dart';
@@ -64,7 +65,16 @@ class OrderListScreen extends StatelessWidget {
                           child: Card(
                             child: ListTile(
                               isThreeLine: true,
-                              leading: Image.asset('assets/images/pizza.jpg'),
+                              leading: (item.image == "")
+                                  ? SvgPicture.asset(
+                                      "assets/images/burger.svg",
+                                      width: 90,
+                                    )
+                                  : Image.network(
+                                      item.image,
+                                      fit: BoxFit.cover,
+                                      width: 90,
+                                    ),
                               title: Text("${item.name}"),
                               subtitle: Text(
                                   "Quantity: ${orders[index].quantity}\nState: ${orders[index].orderState}"),

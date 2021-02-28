@@ -21,7 +21,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       } catch (_) {
         yield UserFailedToSignIn();
       }
+    } else if (event is UserSignInFromCache) {
+      try {
+        User user = await this.userRepository.getUserById();
+        yield UserSuccessfullySignedIn(user);
+      } catch (_) {
+        yield UserFailedToSignIn();
+      }
     } else if (event is UserSignUp) {
+      print("in bloc");
       try {
         User user = await this.userRepository.createUser(event.user);
         yield UserSuccessfullySignedIn(user);

@@ -13,6 +13,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<ItemBloc>(context).add(ItemLoad());
     return WillPopScope(
       //onWillPop: () => SystemNavigator.pop(),
       child: Scaffold(
@@ -78,11 +79,17 @@ class HomePage extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
-                                    child: SvgPicture.asset(
-                                      "assets/images/burger.svg",
-                                      height: 90,
-                                      width: 50,
-                                    ),
+                                    child: (items[index].image == "")
+                                        ? SvgPicture.asset(
+                                            "assets/images/burger.svg",
+                                            height: 90,
+                                            width: 50,
+                                          )
+                                        : Image.network(
+                                            items[index].image,
+                                            fit: BoxFit.cover,
+                                            height: 90,
+                                          ),
                                   ),
                                   Expanded(
                                     child: Column(
@@ -118,7 +125,7 @@ class HomePage extends StatelessWidget {
                         );
                       });
                 }
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator());
               }),
             ),
           ),

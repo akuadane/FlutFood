@@ -46,7 +46,15 @@ class _OrderUpdateScreenState extends State<OrderUpdateScreen> {
             color: kLoginMainColor,
           ),
         ),
-        leading: Container(),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            color: kLoginMainColor,
+          ),
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -71,11 +79,16 @@ class _OrderUpdateScreenState extends State<OrderUpdateScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SvgPicture.asset(
-                        "assets/images/burger.svg",
-                        width: MediaQuery.of(context).size.width,
-                        height: 300,
-                      ),
+                      (item.image == "")
+                          ? SvgPicture.asset(
+                              "assets/images/burger.svg",
+                              height: 300,
+                            )
+                          : Image.network(
+                              item.image,
+                              fit: BoxFit.cover,
+                              height: 300,
+                            ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

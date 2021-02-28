@@ -20,6 +20,7 @@ class _ItemDetailState extends State<ItemDetail> {
   int _amount = 1;
   int _price = 0;
   String _name = "";
+  String image = "";
   String _description = "";
 
   @override
@@ -27,6 +28,7 @@ class _ItemDetailState extends State<ItemDetail> {
     this._price = widget.item.price;
     this._description = widget.item.description;
     this._name = widget.item.name;
+    this.image = widget.item.image;
     super.initState();
   }
 
@@ -34,21 +36,16 @@ class _ItemDetailState extends State<ItemDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Container(
-          margin: EdgeInsets.all(3),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-          ),
-          child: FlatButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Image.asset("assets/images/backarrow.png"),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            color: kLoginMainColor,
           ),
         ),
         backgroundColor: backgroundColor,
-        elevation: 0,
       ),
       backgroundColor: backgroundColor,
       body: SafeArea(
@@ -69,11 +66,16 @@ class _ItemDetailState extends State<ItemDetail> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SvgPicture.asset(
-                  "assets/images/burger.svg",
-                  width: MediaQuery.of(context).size.width,
-                  height: 300,
-                ),
+                (this.image == "")
+                    ? SvgPicture.asset(
+                        "assets/images/burger.svg",
+                        height: 300,
+                      )
+                    : Image.network(
+                        this.image,
+                        fit: BoxFit.cover,
+                        height: 300,
+                      ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -191,6 +193,7 @@ class _ItemDetailState extends State<ItemDetail> {
 
                     if (userState is UserSuccessfullySignedIn) {
                       int userId = userState.user.id;
+
                       BlocProvider.of<CartBloc>(context).add(AddOrder(
                         Order(
                           itemId: widget.item.id,

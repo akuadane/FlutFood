@@ -11,9 +11,11 @@ class OrderProvider {
   OrderProvider(@required this.httpClient) : assert(httpClient != null);
 
   Future<List<Order>> getOrders() async {
-    final response = await this.httpClient.get(
-          "$baseURL/v1/admin/orders",
-        );
+    final response = await this
+        .httpClient
+        .get("$baseURL/v1/admin/orders", headers: <String, String>{
+      'api-key': "9fe8c794-32fd-4dba-b57e-68194327285d",
+    });
 
     if (response.statusCode == 200) {
       final orders = jsonDecode(response.body) as List;
@@ -26,6 +28,7 @@ class OrderProvider {
     final response = await this.httpClient.post("$baseURL/v1/admin/orders",
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
+          'api-key': "9fe8c794-32fd-4dba-b57e-68194327285d",
         },
         body: jsonEncode(<String, dynamic>{
           "user_id": order.userId,
@@ -46,6 +49,7 @@ class OrderProvider {
       "$baseURL/v1/admin/orders/$id",
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'api-key': "9fe8c794-32fd-4dba-b57e-68194327285d",
       },
     );
 
@@ -59,6 +63,7 @@ class OrderProvider {
           "$baseURL/v1/admin/orders/${order.id}",
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
+            'api-key': "9fe8c794-32fd-4dba-b57e-68194327285d",
           },
           body: jsonEncode(
             <String, dynamic>{
