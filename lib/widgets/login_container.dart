@@ -1,10 +1,10 @@
 import 'package:flut_food/colors.dart';
 import 'package:flut_food/constants.dart';
-import 'package:flut_food/pages/signup.dart';
 import 'package:flut_food/services/container_clipper.dart';
 import 'package:flut_food/user/bloc/bloc.dart';
 import 'package:flut_food/user/data_provider/data_provider.dart';
 import 'package:flut_food/user/model/models.dart';
+import 'package:flut_food/user/screens/signup.dart';
 import 'package:flut_food/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
