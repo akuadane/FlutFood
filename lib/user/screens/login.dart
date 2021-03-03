@@ -18,7 +18,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UserBloc>(context).add(UserSignInFromCache());
+    //BlocProvider.of<UserBloc>(context).add(UserSignInFromCache());
     return WillPopScope(
       onWillPop: () => SystemNavigator.pop(),
       child: Scaffold(
@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
             } else if (userState is UserSuccessfullySignedIn) {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs.setInt("USER_ID", userState.user.id);
-           
+
               Navigator.pushNamed(context, HOME_HOLDER);
             }
           },

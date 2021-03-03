@@ -47,50 +47,58 @@ class OrderListScreen extends StatelessWidget {
 
           if (orderState is OrderLoaded) {
             List<Order> orders = orderState.orders;
-            return ListView.builder(
-                physics: BouncingScrollPhysics(),
-                itemCount: orders.length,
-                itemBuilder: (context, index) {
-                  return FutureBuilder<Item>(
-                    future: itemRepository.getItem(orders[index].itemId),
-                    builder: (context, tempItem) {
-                      if (tempItem.hasData) {
-                        Item item = tempItem.data;
-                        return Dismissible(
-                          key: Key("${orders[index].id}"),
-                          onDismissed: (direction) {
-                            BlocProvider.of<OrderBloc>(context)
-                                .add(OrderDelete(orders[index]));
-                          },
-                          child: Card(
-                            child: ListTile(
-                              isThreeLine: true,
-                              leading: (item.image == "")
-                                  ? SvgPicture.asset(
-                                      "assets/images/burger.svg",
-                                      width: 90,
-                                    )
-                                  : Image.network(
-                                      item.image,
-                                      fit: BoxFit.cover,
-                                      width: 90,
-                                    ),
-                              title: Text("${item.name}"),
-                              subtitle: Text(
-                                  "Quantity: ${orders[index].quantity}\nState: ${orders[index].orderState}"),
-                              onTap: () {
-                                Navigator.pushNamed(context, ORDER_UPDATE,
-                                    arguments: orders[index]);
-                              },
+            if (orders.isNotEmpty) {
+              return ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: orders.length,
+                  itemBuilder: (context, index) {
+                    return FutureBuilder<Item>(
+                      future: itemRepository.getItem(orders[index].itemId),
+                      builder: (context, tempItem) {
+                        if (tempItem.hasData) {
+                          Item item = tempItem.data;
+                          return Dismissible(
+                            key: Key("${orders[index].id}"),
+                            onDismissed: (direction) {
+                              BlocProvider.of<OrderBloc>(context)
+                                  .add(OrderDelete(orders[index]));
+                            },
+                            child: Card(
+                              child: ListTile(
+                                isThreeLine: true,
+                                leading: (item.image == "")
+                                    ? SvgPicture.asset(
+                                        "assets/images/burger.svg",
+                                        width: 90,
+                                      )
+                                    : Image.network(
+                                        item.image,
+                                        fit: BoxFit.cover,
+                                        width: 90,
+                                      ),
+                                title: Text("${item.name}"),
+                                subtitle: Text(
+                                    "Quantity: ${orders[index].quantity}\nState: ${orders[index].orderState}"),
+                                onTap: () {
+                                  Navigator.pushNamed(context, ORDER_UPDATE,
+                                      arguments: orders[index]);
+                                },
+                              ),
                             ),
-                          ),
-                        );
-                      }
+                          );
+                        }
 
-                      return Container();
-                    },
-                  );
-                });
+                        return Container();
+                      },
+                    );
+                  });
+            } else {
+              return Container(
+                child: Center(
+                  child: Text("You have not ordered anything yet."),
+                ),
+              );
+            }
           }
           return Container(
             child: Center(child: CircularProgressIndicator()),

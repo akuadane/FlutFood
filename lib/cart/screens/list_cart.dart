@@ -104,8 +104,8 @@ class CartList extends StatelessWidget {
                 for (int i = 0; i < orders.length; i++) {
                   BlocProvider.of<OrderBloc>(context)
                       .add(OrderCreate(orders[i]));
-                  BlocProvider.of<CartBloc>(context).add(DeleteOrder(i));
                 }
+                BlocProvider.of<CartBloc>(context).add(DeleteAllOrders());
                 Navigator.pushNamed(context, HOME_HOLDER);
               },
               color: Colors.white,
